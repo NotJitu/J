@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JITU | Premium Notes & Video Lectures</title>
-    <meta name="description" content="JITU Premium Vault provides high-quality Class 11 Science study material. Get free handwritten notes for Physics, Chemistry, Biology and Maths. Complete video lectures for JEE, NEET and Board exams.">
-    <meta name="keywords" content="Class 11 Science Notes, Free Physics Lectures, Chemistry Handwritten Notes, JITU Vault, Free Education, JEE NEET Preparation">
-
+    <meta name="description" content="JITU Premium Vault provides high-quality Class 11 Science study material. Get free handwritten notes and HLS video lectures.">
+    
     <!-- Google AdSense Main Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3849531167902850" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7037140892556243"
+     crossorigin="anonymous"></script>
 
+    <!-- HLS Player Script -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
@@ -27,7 +29,7 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .shimmer { background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .video-container video { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
 <body>
@@ -100,12 +102,12 @@
             <h3 class="text-3xl font-black text-indigo-900 uppercase italic mb-6">About JITU VAULT</h3>
             <div class="grid md:grid-cols-2 gap-10 text-gray-600 leading-relaxed">
                 <div>
-                    <p class="mb-4"><strong>Quality Education:</strong> Humara mission hai rural aur urban dono areas ke students ko premium quality notes aur video lectures deliver karna taaki unka foundation strong ho sake.</p>
-                    <p><strong>Interactive Learning:</strong> Video lectures numerical problems aur complex concepts ko easy language mein explain karte hain, jo JEE aur NEET ki taiyari mein madadgar hain.</p>
+                    <p class="mb-4"><strong>Quality Education:</strong> Humara mission hai rural aur urban dono areas ke students ko premium quality notes aur video lectures deliver karna.</p>
+                    <p><strong>Interactive Learning:</strong> Video lectures aur complex concepts ko easy language mein explain karte hain.</p>
                 </div>
                 <div>
-                    <p class="mb-4"><strong>Free of Cost:</strong> Education resources ke liye hum kabhi koi fees charge nahi karte. Yeh poori tarah se community-driven aur student-focused portal hai.</p>
-                    <p><strong>Contact Us:</strong> Agar aapko koi dikkat ho rahi hai ya aap koi feedback dena chahte hain, toh humare YouTube channel ya Telegram par reach out karein.</p>
+                    <p class="mb-4"><strong>Free of Cost:</strong> Education resources ke liye hum kabhi koi fees charge nahi karte.</p>
+                    <p><strong>Contact Us:</strong> Agar aapko koi dikkat ho rahi hai, toh humare YouTube ya Telegram par reach out karein.</p>
                 </div>
             </div>
         </article>
@@ -117,73 +119,78 @@
 
 <!-- Unified Modal System -->
 <div id="modalOverlay" class="fixed inset-0 bg-gray-950/90 backdrop-blur-xl hidden z-[100] items-center justify-center p-6 opacity-0 transition-all duration-300">
-    <!-- Admin Modals (Existing) -->
+    <!-- Admin Login -->
     <div id="loginModal" class="bg-white rounded-[2.5rem] w-full max-w-sm p-10 hidden shadow-2xl">
         <h3 class="text-2xl font-black mb-6 text-center uppercase italic">Admin Access</h3>
         <input id="passInput" type="password" placeholder="Passkey" class="w-full bg-gray-50 p-5 rounded-2xl mb-6 text-center text-2xl font-black border-2 border-gray-100">
         <button onclick="tryLogin()" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest">Verify</button>
     </div>
 
-    <!-- Legal Modal (New for AdSense) -->
+    <!-- Legal Modal -->
     <div id="legalModal" class="bg-white rounded-[2.5rem] w-full max-w-3xl p-10 hidden max-h-[85vh] overflow-y-auto no-scrollbar">
-        <div id="legalContent" class="prose prose-sm max-w-none text-gray-600">
-            <!-- Content Injected via JS -->
-        </div>
+        <div id="legalContent" class="prose prose-sm max-w-none text-gray-600"></div>
         <div class="mt-8 pt-6 border-t">
             <button onclick="closeModals()" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-black uppercase text-[10px] tracking-widest">Close Page</button>
         </div>
     </div>
 
+    <!-- Content Upload Modal -->
     <div id="addModal" class="bg-white rounded-[2.5rem] w-full max-w-xl p-10 hidden max-h-[90vh] overflow-y-auto no-scrollbar">
         <h3 class="text-3xl font-black mb-8 italic uppercase text-indigo-900">Add Content</h3>
         <div class="space-y-4">
-            <input id="vTitle" type="text" placeholder="Title" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100">
+            <input id="vTitle" type="text" placeholder="Lecture Title" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100">
             <div class="grid grid-cols-2 gap-4">
                 <input id="vSub" type="text" placeholder="Subject" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100">
                 <input id="vChap" type="text" placeholder="Chapter" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100">
             </div>
-            <input id="vUrl" type="text" placeholder="YouTube URL" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100">
-            <input id="vNotes" type="text" placeholder="Notes Link" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100">
-            <textarea id="vCustomDesc" placeholder="Description" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100 h-32"></textarea>
+            <input id="vUrl" type="text" placeholder="M3U8 Video Link" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100">
+            <div class="grid grid-cols-2 gap-4">
+                <input id="vNotes" type="text" placeholder="Lecture Notes PDF Link" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100">
+                <input id="vChapNotes" type="text" placeholder="Chapter One Pager Link" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100">
+            </div>
+            <textarea id="vCustomDesc" placeholder="AI/Custom Description" class="w-full bg-gray-50 p-5 rounded-2xl border border-gray-100 h-32"></textarea>
             <input type="hidden" id="editId">
             <div class="flex gap-4 pt-4">
                 <button onclick="closeModals()" class="flex-1 bg-gray-100 py-5 rounded-2xl font-bold uppercase text-xs">Cancel</button>
-                <button onclick="saveVideo()" class="flex-[2] bg-indigo-600 text-white py-5 rounded-2xl font-black uppercase text-xs">Save</button>
+                <button onclick="saveVideo()" class="flex-[2] bg-indigo-600 text-white py-5 rounded-2xl font-black uppercase text-xs">Save Content</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div id="playerModal" class="bg-black rounded-3xl w-full max-w-4xl overflow-hidden hidden shadow-2xl relative">
+        <button onclick="closeModals()" class="absolute top-4 right-4 z-50 bg-white/20 text-white p-2 rounded-full hover:bg-white/40">✕</button>
+        <div class="aspect-video bg-black flex items-center justify-center">
+            <video id="hlsVideo" controls autoplay playsinline class="w-full h-full"></video>
         </div>
     </div>
 </div>
 
-<footer class="bg-white border-t border-gray-100 pt-24 pb-12 px-8" id="footer-links">
+<footer class="bg-white border-t border-gray-100 pt-24 pb-12 px-8">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16">
         <div class="md:col-span-2">
             <div class="flex items-center gap-3 mb-6">
                 <div class="w-8 h-8 bg-[#5a4bda] rounded-lg flex items-center justify-center text-white font-black text-lg italic">J</div>
                 <span class="text-lg font-black tracking-tighter uppercase">JITU VAULT</span>
             </div>
-            <p class="text-gray-500 text-sm leading-relaxed max-w-md italic">
-                A dedicated educational hub for Class 11 Science students. Empowering learners with premium resources for free.
-            </p>
+            <p class="text-gray-500 text-sm leading-relaxed max-w-md italic">A dedicated educational hub for Class 11 Science students. Empowering learners with premium resources for free.</p>
         </div>
         <div>
-            <h4 class="font-black text-[10px] uppercase tracking-widest text-gray-900 mb-6">Policies & Support</h4>
+            <h4 class="font-black text-[10px] uppercase tracking-widest text-gray-900 mb-6">Policies</h4>
             <ul class="space-y-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
-                <li><button onclick="showLegalModal('privacy')" class="hover:text-indigo-600 transition-colors">Privacy Policy</button></li>
-                <li><button onclick="showLegalModal('terms')" class="hover:text-indigo-600 transition-colors">Terms of Service</button></li>
-                <li><button onclick="showLegalModal('disclaimer')" class="hover:text-indigo-600 transition-colors">Disclaimer</button></li>
+                <li><button onclick="showLegalModal('privacy')" class="hover:text-indigo-600">Privacy Policy</button></li>
+                <li><button onclick="showLegalModal('terms')" class="hover:text-indigo-600">Terms of Service</button></li>
             </ul>
         </div>
         <div>
-            <h4 class="font-black text-[10px] uppercase tracking-widest text-gray-900 mb-6">Social Connect</h4>
+            <h4 class="font-black text-[10px] uppercase tracking-widest text-gray-900 mb-6">Social</h4>
             <ul class="space-y-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
-                <li><a href="https://youtube.com" target="_blank" class="hover:text-red-500 transition-colors">YouTube Channel</a></li>
-                <li><a href="https://t.me" target="_blank" class="hover:text-blue-500 transition-colors">Telegram Group</a></li>
+                <li><a href="#" class="hover:text-red-500">YouTube</a></li>
+                <li><a href="#" class="hover:text-blue-500">Telegram</a></li>
             </ul>
         </div>
     </div>
-    <div class="mt-20 pt-8 border-t border-gray-50 text-center">
-        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em]">© 2024 JITU EDUCATIONAL HUB | FOR EDUCATIONAL PURPOSE ONLY</p>
-    </div>
+    <div class="mt-20 pt-8 border-t text-center"><p class="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em]">© 2024 JITU EDUCATIONAL HUB</p></div>
 </footer>
 
 <script type="module">
@@ -204,21 +211,12 @@ let db, auth, videoList = [], isAdmin = false, currentSubject = '';
 const PASS_KEY = "Jitu9027", COLLECTION_ID = "jitu_ultra_premium_v2";
 const SUBJECT_ORDER = ["Physics", "Chemistry", "Maths", "Biology", "English"];
 const descCache = new Map();
+let hlsInstance = null;
 
-// Legal Texts for AdSense Compliance
 const LEGAL_DATA = {
-    privacy: `<h2 class="text-2xl font-black mb-4 uppercase">Privacy Policy</h2>
-              <p>Hum JITU VAULT par aapki privacy ka poora dhyan rakhte hain. Hum kisi bhi user se unka personal data jaise phone number ya password collect nahi karte.</p>
-              <p><strong>Ads:</strong> Hum Google AdSense ka upyog karte hain jo aapke browsing experience ke hisaab se ads dikha sakta hai. Yeh cookies ka upyog karta hai. Aap apne browser setting se ise disable kar sakte hain.</p>
-              <p>Humara portal anonymous authentication ka upyog karta hai taaki aapka data safe rahe.</p>`,
-    terms: `<h2 class="text-2xl font-black mb-4 uppercase">Terms of Service</h2>
-            <p>JITU VAULT par uplabdh content sirf educational purpose ke liye hai.</p>
-            <p>1. Aap kisi bhi content ko commercial use ke liye nahi bech sakte.</p>
-            <p>2. Hum kisi bhi content ki availability ki guarantee nahi dete lekin behtar service ki koshish karte hain.</p>
-            <p>3. Is site par maujood links third-party platforms (jaise YouTube) ke ho sakte hain.</p>`,
-    disclaimer: `<h2 class="text-2xl font-black mb-4 uppercase">Disclaimer</h2>
-                 <p>JITU VAULT kisi bhi sarkari sanstha ya official board se juda nahi hai. Hum students ki help ke liye content aggregate karte hain.</p>
-                 <p>Halaanki hum accurate data provide karne ki koshish karte hain, lekin numericals ya facts ko apne textbook se cross-check zarur karein. Hum kisi bhi loss ya misunderstanding ke liye zimmedar nahi hain.</p>`
+    privacy: `<h2 class="text-2xl font-black mb-4 uppercase">Privacy Policy</h2><p>JITU VAULT aapki privacy ka dhyan rakhta hai. Hum personal data collect nahi karte aur Google AdSense cookies use karta hai.</p>`,
+    terms: `<h2 class="text-2xl font-black mb-4 uppercase">Terms of Service</h2><p>Content sirf educational purpose ke liye hai. Commercial use allowed nahi hai.</p>`,
+    disclaimer: `<h2 class="text-2xl font-black mb-4 uppercase">Disclaimer</h2><p>Hum official board se nahi jude hain. Data students ki help ke liye hai.</p>`
 };
 
 async function startup() {
@@ -240,6 +238,46 @@ function listen() {
     });
 }
 
+window.playVideo = (url) => {
+    const video = document.getElementById('hlsVideo');
+    if (!video) return;
+
+    showModal('playerModal');
+    
+    // Clean up previous instance
+    if (hlsInstance) {
+        hlsInstance.destroy();
+        hlsInstance = null;
+    }
+
+    if (Hls.isSupported()) {
+        hlsInstance = new Hls({
+            enableWorker: true,
+            lowLatencyMode: true,
+            backBufferLength: 90
+        });
+        hlsInstance.loadSource(url);
+        hlsInstance.attachMedia(video);
+        hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+            video.play().catch(e => console.log("Auto-play prevented", e));
+        });
+        hlsInstance.on(Hls.Events.ERROR, (event, data) => {
+            if (data.fatal) {
+                switch(data.type) {
+                    case Hls.ErrorTypes.NETWORK_ERROR: hlsInstance.startLoad(); break;
+                    case Hls.ErrorTypes.MEDIA_ERROR: hlsInstance.recoverMediaError(); break;
+                    default: hlsInstance.destroy(); break;
+                }
+            }
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = url;
+        video.addEventListener('loadedmetadata', () => {
+            video.play();
+        });
+    }
+};
+
 async function fetchAI(video, element) {
     if (video.customDescription || !element) return;
     if (descCache.has(video.id)) {
@@ -249,7 +287,7 @@ async function fetchAI(video, element) {
     }
     try {
         const apiKey = ""; 
-        const prompt = `Class 11 ${video.subject} Chapter ${video.chapter} Topic ${video.title} ke liye Hinglish descriptive text likho (50 words). Professional sound kare.`;
+        const prompt = `Class 11 ${video.subject} Chapter ${video.chapter} Topic ${video.title} ke liye Hinglish descriptive text likho (50 words).`;
         const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -260,7 +298,7 @@ async function fetchAI(video, element) {
         descCache.set(video.id, text);
         element.innerText = text;
         element.classList.remove('shimmer');
-    } catch (e) { element.innerText = "Access premium lectures and notes for Class 11."; }
+    } catch (e) { element.innerText = "Access premium lectures for Class 11."; }
 }
 
 window.render = () => {
@@ -282,17 +320,27 @@ window.render = () => {
 
     chaptersCont.innerHTML = chapters.map(chap => {
         const chapVideos = subVideos.filter(v => (v.chapter || 'General') === chap);
+        const chapOnePager = chapVideos.find(v => v.chapNotes)?.chapNotes;
+
         return `
             <div>
-                <div class="flex items-center gap-6 mb-12">
+                <div class="flex items-center gap-6 mb-12 flex-wrap">
                     <h3 class="text-3xl font-black text-gray-900 uppercase italic tracking-tighter">${chap}</h3>
-                    <div class="flex-1 h-[1px] bg-gray-100"></div>
+                    ${chapOnePager ? `
+                        <button onclick="window.open('${chapOnePager}')" class="bg-indigo-50 text-indigo-600 px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest border border-indigo-100 hover:bg-indigo-100 transition-colors">📄 Chapter One Pager</button>
+                    ` : ''}
+                    <div class="flex-1 h-[1px] bg-gray-100 min-w-[50px]"></div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     ${chapVideos.map(v => `
                         <div class="video-card group">
-                            <div class="aspect-video cursor-pointer relative overflow-hidden bg-gray-200" onclick="window.open('https://youtube.com/watch?v=${v.ytId}')">
-                                <img src="https://i.ytimg.com/vi/${v.ytId}/hqdefault.jpg" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="aspect-video cursor-pointer relative overflow-hidden bg-slate-900" onclick="playVideo('${v.m3u8Url}')">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="w-12 h-12 bg-white/10 backdrop-blur rounded-full flex items-center justify-center group-hover:scale-125 transition-transform">
+                                        <div class="border-y-8 border-y-transparent border-l-[12px] border-l-white ml-1"></div>
+                                    </div>
+                                </div>
+                                <div class="absolute bottom-4 left-4 text-[8px] font-black text-white/50 uppercase tracking-widest">HLS Premium Stream</div>
                             </div>
                             <div class="p-8 flex-1 flex flex-col">
                                 <h4 class="text-lg font-black text-gray-900 mb-3 uppercase leading-tight">${v.title}</h4>
@@ -300,7 +348,7 @@ window.render = () => {
                                     ${v.customDescription || 'Generating description...'}
                                 </p>
                                 <div class="flex items-center gap-3">
-                                    <button onclick="window.open('https://youtube.com/watch?v=${v.ytId}')" class="flex-1 bg-indigo-600 text-white text-[9px] font-black py-4 rounded-xl uppercase shadow-lg shadow-indigo-100">Watch</button>
+                                    <button onclick="playVideo('${v.m3u8Url}')" class="flex-1 bg-indigo-600 text-white text-[9px] font-black py-4 rounded-xl uppercase shadow-lg shadow-indigo-100">Play Now</button>
                                     ${v.notes ? `<button onclick="window.open('${v.notes}')" class="px-5 py-4 bg-gray-100 text-gray-600 rounded-xl text-[9px] font-black uppercase">Notes</button>` : ''}
                                 </div>
                                 ${isAdmin ? `<div class="mt-4 pt-4 border-t flex gap-4 text-[9px] font-bold uppercase"><button onclick="editEntry('${v.id}')" class="text-indigo-400">Edit</button><button onclick="deleteMe('${v.id}')" class="text-red-400">Delete</button></div>` : ''}
@@ -319,15 +367,16 @@ window.render = () => {
 
 window.saveVideo = async () => {
     const title = document.getElementById('vTitle').value, sub = document.getElementById('vSub').value, chap = document.getElementById('vChap').value;
-    const url = document.getElementById('vUrl').value, notes = document.getElementById('vNotes').value, editId = document.getElementById('editId').value;
+    const m3u8Url = document.getElementById('vUrl').value, notes = document.getElementById('vNotes').value, editId = document.getElementById('editId').value;
+    const chapNotes = document.getElementById('vChapNotes').value;
     const customDesc = document.getElementById('vCustomDesc').value;
-    const ytId = url.match(/(?:v=|\/|embed\/|youtu.be\/)([0-9A-Za-z_-]{11})/)?.[1];
-    if(title && ytId) {
-        const data = { title, subject: sub, chapter: chap || 'General', ytId, notes, customDescription: customDesc };
+    
+    if(title && m3u8Url) {
+        const data = { title, subject: sub, chapter: chap || 'General', m3u8Url, notes, chapNotes, customDescription: customDesc, updatedAt: Date.now() };
         if(editId) await updateDoc(doc(db, 'artifacts', COLLECTION_ID, 'public', 'data', 'videos', editId), data);
-        else await addDoc(collection(db, 'artifacts', COLLECTION_ID, 'public', 'data', 'videos'), data);
+        else await addDoc(collection(db, 'artifacts', COLLECTION_ID, 'public', 'data', 'videos'), { ...data, createdAt: Date.now() });
         closeModals();
-    }
+    } else alert("Details missing!");
 };
 
 window.editEntry = (id) => {
@@ -336,8 +385,9 @@ window.editEntry = (id) => {
     document.getElementById('vTitle').value = v.title;
     document.getElementById('vSub').value = v.subject;
     document.getElementById('vChap').value = v.chapter;
-    document.getElementById('vUrl').value = `https://youtube.com/watch?v=${v.ytId}`;
+    document.getElementById('vUrl').value = v.m3u8Url || "";
     document.getElementById('vNotes').value = v.notes || "";
+    document.getElementById('vChapNotes').value = v.chapNotes || "";
     document.getElementById('vCustomDesc').value = v.customDescription || "";
     showModal('addModal');
 };
@@ -357,14 +407,23 @@ window.showModal = (id) => {
     setTimeout(() => o.style.opacity = '1', 50); 
 };
 window.closeModals = () => { 
+    const video = document.getElementById('hlsVideo');
+    if (video) {
+        video.pause();
+        video.src = "";
+    }
+    if (hlsInstance) {
+        hlsInstance.destroy();
+        hlsInstance = null;
+    }
     document.getElementById('modalOverlay').style.opacity = '0'; 
     setTimeout(() => {
         document.getElementById('modalOverlay').classList.add('hidden');
-        ['loginModal','addModal','legalModal'].forEach(m => document.getElementById(m).classList.add('hidden'));
+        ['loginModal','addModal','legalModal','playerModal'].forEach(m => document.getElementById(m).classList.add('hidden'));
     }, 300); 
 };
 window.openLoginModal = () => isAdmin ? (isAdmin = false, location.reload()) : showModal('loginModal');
-window.openAddModal = () => { ['vTitle','vUrl','vSub','vChap','vNotes','vCustomDesc','editId'].forEach(i=>document.getElementById(i).value=""); showModal('addModal'); };
+window.openAddModal = () => { ['vTitle','vUrl','vSub','vChap','vNotes','vChapNotes','vCustomDesc','editId'].forEach(i=>document.getElementById(i).value=""); showModal('addModal'); };
 document.getElementById('searchInput').addEventListener('input', render);
 startup();
 </script>
